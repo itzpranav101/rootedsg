@@ -28,10 +28,12 @@ export default {
       keyframes: {
         'fade-up': { from: { opacity: 0, transform: 'translateY(14px)' }, to: { opacity: 1, transform: 'none' } },
         'spin-slow': { to: { transform: 'rotate(360deg)' } },
+        'line-up': { from: { transform: 'translateY(110%)' }, to: { transform: 'translateY(0)' } },
       },
       animation: {
         'fade-up': 'fade-up .8s cubic-bezier(.16,1,.3,1) both',
         'spin-slow': 'spin-slow 60s linear infinite',
+        'line-up': 'line-up 1.1s cubic-bezier(.16,1,.3,1) both',
       },
     },
   },

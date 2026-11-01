@@ -3,9 +3,10 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { m, useScroll, useSpring, useTransform } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
-import { ArrowRight, Check, CheckCircle2, FileCheck2, FileSpreadsheet, Lock, ScanSearch, ShieldCheck, Users } from 'lucide-react';
+import { ArrowRight, Check, FileCheck2, Lock, ShieldCheck, Users } from 'lucide-react';
 import { company, quality, safeguards, services, split, steps } from '../content/site';
 import { useSeo } from '../hooks/useSeo';
+import { formatTime, useLiveClock } from '../hooks/useLiveClock';
 import { usePerf } from '../lib/perf';
 import { Reveal } from '../components/ui/Reveal';
 import { SectionIntro } from '../components/ui/SectionIntro';
@@ -14,6 +15,7 @@ import { CtaBand } from '../components/ui/CtaBand';
 import { Clouds } from '../components/motion/Clouds';
 import { CountUp } from '../components/motion/CountUp';
 import { FileJourney } from '../components/motion/FileJourney';
+import { FlowRail } from '../components/motion/FlowRail';
 import { RouteMap } from '../components/motion/RouteMap';
 import { ScrollCue, ScrollRail, Squiggle } from '../components/motion/ScrollCue';
 import { ServiceGlyph } from '../components/motion/ServiceGlyph';
@@ -59,59 +61,116 @@ export default function Home() {
 
 /* ─────────────── Hero ─────────────── */
 
+const KNOWLEDGE = ['SFRS', 'ACRA', 'IRAS', 'CPF', 'MOM', 'GST', 'XBRL'];
+
 function Hero() {
   return (
-    <section className="sky-wash relative overflow-hidden pt-32 sm:pt-40">
+    <section className="sky-wash relative overflow-hidden">
       <Clouds />
-      <div className="wrap relative text-center">
-        <p className="label animate-fade-up">Win-Win · Madurai back office · Singapore review</p>
-        <h1 className="h-display mx-auto mt-6 max-w-6xl animate-fade-up text-[2.7rem] leading-[0.98] [animation-delay:80ms] xs:text-[3.1rem] sm:text-7xl lg:text-[5.8rem] lg:leading-[0.95]">
-          We prepare the work.
-          <br />
-          <span className="accent">
+
+      {/* ── First screen: message, actions, workflow ── */}
+      <div className="wrap relative flex min-h-[calc(100svh-1rem)] flex-col items-center justify-center pb-10 pt-28 text-center sm:pb-14 sm:pt-32 lg:min-h-0 lg:pb-16 lg:pt-36 lg:[@media(max-height:820px)]:pt-28">
+        <HeroClock />
+
+        <h1 className="h-display mx-auto mt-7 max-w-6xl text-[2.75rem] leading-[1] xs:text-[3.15rem] sm:mt-8 sm:text-7xl lg:text-[5.9rem] lg:leading-[0.96] lg:[@media(max-height:820px)]:mt-6 lg:[@media(max-height:820px)]:text-[4.8rem]">
+          <Line delay={0}>We prepare the work.</Line>
+          <Line delay={120} className="accent pb-[0.22em] -mb-[0.22em]">
             You review with{' '}
             <span className="relative inline-block whitespace-nowrap">
               confidence.
-              <Squiggle className="-bottom-1.5 h-3 text-brand-800 sm:-bottom-3 sm:h-4 dark:text-brand-300" />
+              <Squiggle delay={1.05} className="-bottom-1 h-3 text-brand-800 sm:-bottom-2 sm:h-4 dark:text-brand-300" />
             </span>
-          </span>
+          </Line>
         </h1>
 
-        <p className="label mt-12 animate-fade-up [animation-delay:200ms]">Every file is an equation:</p>
-        <div className="mx-auto mt-5 inline-flex animate-fade-up flex-col items-start gap-4 text-left [animation-delay:260ms] sm:flex-row sm:items-center sm:gap-6">
-          <Eq icon={<FileSpreadsheet size={22} strokeWidth={1.5} />}>Prepared by <b>our team</b></Eq>
-          <span aria-hidden className="hidden text-2xl font-light text-ink/35 sm:block dark:text-white/35">+</span>
-          <Eq icon={<ScanSearch size={22} strokeWidth={1.5} />}>Checked by <b>a second</b></Eq>
-          <span aria-hidden className="hidden text-2xl font-light text-ink/35 sm:block dark:text-white/35">=</span>
-          <Eq icon={<CheckCircle2 size={22} strokeWidth={1.5} />}>Ready <b className="text-brand-800 dark:text-brand-300">for your review</b></Eq>
+        <p className="lead mx-auto mt-7 max-w-[42rem] animate-fade-up [animation-delay:380ms] [text-wrap:balance] sm:mt-8">
+          The Madurai back office for {company.parent.replace('-', '\u2011')}, Singapore.{' '}
+          <span className="hidden sm:inline">Bookkeeping, audit working papers, payroll, GST and tax — </span>
+          <span className="sm:hidden">Every file is </span>
+          <span className="text-ink dark:text-white">prepared, double&#8209;checked and ready for sign&#8209;off.</span>
+        </p>
+
+        <div className="mt-9 flex w-full animate-fade-up flex-col items-center justify-center gap-3 [animation-delay:480ms] sm:w-auto sm:flex-row">
+          <Link to="/contact" className="btn-primary w-full max-w-[20rem] sm:w-auto">Discuss your work <ArrowRight size={14} /></Link>
+          <a href="#journey" className="btn-ghost w-full max-w-[20rem] sm:w-auto">See how a file moves</a>
         </div>
 
-        <div className="mt-10 flex animate-fade-up flex-col items-center justify-center gap-3 [animation-delay:320ms] sm:flex-row">
-          <Link to="/contact" className="btn-primary w-full max-w-[19rem] sm:w-auto">Discuss your work <ArrowRight size={14} /></Link>
-          <a href="#journey" className="btn-ghost w-full max-w-[19rem] sm:w-auto">See how it works</a>
+        <div className="mt-12 w-full animate-fade-up [animation-delay:600ms] sm:mt-14 lg:[@media(max-height:820px)]:mt-9">
+          <p className="label">Every file follows one path</p>
+          <div className="mt-4"><FlowRail /></div>
         </div>
 
-        <a href="#overview" className="mt-9 inline-flex flex-col items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.2em] text-ink/70 lg:hidden dark:text-white/60">
+        <a href="#overview" className="mt-10 inline-flex flex-col items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.2em] text-ink/70 sm:hidden dark:text-white/60">
           Scroll to learn more
           <svg viewBox="0 0 24 24" className="h-4 w-4 animate-bounce" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden><path d="M6 9l6 6 6-6" /></svg>
         </a>
-
-        <div className="relative mx-auto mt-16 hidden max-w-5xl pb-28 sm:block">
-          <WorkingPaper />
-        </div>
-        <div className="h-14 sm:hidden" />
       </div>
-      <ScrollRail />
+
+      {/* ── Product shot: tilts up into place as you scroll (tablet & desktop) ── */}
+      <HeroPaper />
+
+      {/* ── Closing strip ── */}
+      <div className="wrap relative pb-14 pt-4 sm:pb-20">
+        <div className="flex flex-col items-center gap-4 border-t border-ink/10 pt-8 lg:flex-row lg:justify-center lg:gap-10 dark:border-white/10">
+          <p className="label shrink-0">Working knowledge of</p>
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 sm:gap-0">
+            {KNOWLEDGE.map((k, i) => (
+              <li key={k} className={`text-center font-display text-xl font-light tracking-[-0.01em] text-ink/80 sm:px-6 sm:text-2xl dark:text-white/80 ${i > 0 ? 'sm:border-l sm:border-ink/15 sm:dark:border-white/15' : ''}`}>
+                {k}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <ScrollRail className="top-[calc(100svh-12rem)]" />
     </section>
   );
 }
 
-function Eq({ icon, children }: { icon: ReactNode; children: ReactNode }) {
+/** One headline line that slides up out of a mask (pure CSS — no JS needed for the LCP text). */
+function Line({ children, delay, className = '' }: { children: ReactNode; delay: number; className?: string }) {
   return (
-    <span className="flex items-center gap-3 text-[1rem] text-ink dark:text-white">
-      <span className="text-brand-800 dark:text-brand-300">{icon}</span>
-      <span>{children}</span>
+    <span className={`-mx-[0.08em] block overflow-hidden px-[0.08em] pb-[0.06em] ${className}`}>
+      <span className="block animate-line-up" style={{ animationDelay: `${delay}ms` }}>{children}</span>
     </span>
+  );
+}
+
+/** Live local times in both offices. */
+function HeroClock() {
+  const now = useLiveClock();
+  return (
+    <p className="pill animate-fade-up !bg-white/70 !py-2 !text-ink/75 dark:!bg-white/5 dark:!text-white/70">
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500 opacity-60 lite-hide" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
+      </span>
+      Madurai <b className="font-medium tabular-nums text-brand-800 dark:text-brand-300">{formatTime(now, 'Asia/Kolkata')}</b>
+      <span className="opacity-40">/</span>
+      Singapore <b className="font-medium tabular-nums text-brand-800 dark:text-brand-300">{formatTime(now, 'Asia/Singapore')}</b>
+    </p>
+  );
+}
+
+/** The working paper rises from a 3D tilt to flat as the hero scrolls away. */
+function HeroPaper() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { lite, reduced } = usePerf();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 30%'] });
+  const p = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.5 });
+  const v = lite ? scrollYProgress : p;
+  const rotateX = useTransform(v, [0, 1], [26, 0]);
+  const scale = useTransform(v, [0, 1], [0.86, 1]);
+  const y = useTransform(v, [0, 1], [60, 0]);
+  const glow = useTransform(v, [0, 1], [0.2, 1]);
+  return (
+    <div ref={ref} className="wrap relative hidden pb-16 sm:block lg:pb-24" style={{ perspective: 1400 }}>
+      <m.div aria-hidden style={{ opacity: reduced ? 1 : glow }} className="pointer-events-none absolute inset-x-[15%] bottom-10 top-24 rounded-full bg-brand-400/25 blur-3xl lite-hide dark:bg-brand-600/20" />
+      <m.div style={reduced ? undefined : { rotateX, scale, y, transformOrigin: '50% 100%' }} className="relative mx-auto max-w-5xl">
+        <WorkingPaper />
+      </m.div>
+    </div>
   );
 }
 

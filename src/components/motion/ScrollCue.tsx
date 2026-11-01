@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { m } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { useLoop } from '../../hooks/useLoop';
 import { usePerf } from '../../lib/perf';
 import { EASE_IN_OUT } from '../../lib/ease';
@@ -19,16 +19,18 @@ export function ScrollCue({ label = 'Keep scrolling', className = '' }: { label?
 }
 
 /** Vertical "SCROLL TO LEARN MORE" rail on the right edge of heroes (desktop). */
-export function ScrollRail({ label = 'Scroll to learn more' }: { label?: string }) {
+export function ScrollRail({ label = 'Scroll to learn more', className = 'bottom-10' }: { label?: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const loop = useLoop(ref);
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 220], [1, 0]); // fades away once the visitor starts scrolling
   return (
-    <div ref={ref} aria-hidden className="pointer-events-none absolute bottom-10 right-6 hidden flex-col items-center gap-4 lg:flex xl:right-10">
+    <m.div ref={ref} style={{ opacity }} aria-hidden className={`pointer-events-none absolute right-6 hidden flex-col ${className} items-center gap-4 lg:flex xl:right-10`}>
       <span className="font-mono text-[0.64rem] uppercase tracking-[0.24em] text-ink/60 [writing-mode:vertical-rl] dark:text-white/50">{label}</span>
       <span className="relative h-16 w-px overflow-hidden bg-ink/15 dark:bg-white/15">
         <m.span className="absolute inset-x-0 top-0 h-6 bg-ink dark:bg-white" initial={{ y: '-100%' }} animate={loop ? { y: ['-100%', '280%'] } : undefined} transition={{ duration: 1.8, repeat: Infinity, ease: EASE_IN_OUT }} />
       </span>
-    </div>
+    </m.div>
   );
 }
 
