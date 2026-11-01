@@ -3,7 +3,7 @@ import type { KeyboardEvent } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { Check, Globe } from 'lucide-react';
 import { useI18n } from '../../i18n';
-import { LANGUAGES, langInfo } from '../../i18n/languages';
+import { AVAILABLE as LANGUAGES, langInfo } from '../../i18n/languages';
 import { EASE_OUT } from '../../lib/ease';
 
 /** Header globe button + language list (menu of radio items, fully keyboard operable). */
@@ -15,6 +15,7 @@ export function LanguageMenu({ className = '' }: { className?: string }) {
   const items = useRef<(HTMLButtonElement | null)[]>([]);
   const menuId = useId();
   const current = langInfo(lang);
+  const hidden = LANGUAGES.length < 2;
 
   // Close on outside click / Esc
   useEffect(() => {
@@ -49,6 +50,7 @@ export function LanguageMenu({ className = '' }: { className?: string }) {
     else if (e.key === 'Tab') setOpen(false);
   };
 
+  if (hidden) return null;
   return (
     <div ref={wrap} className={`relative ${className}`}>
       <button

@@ -29,6 +29,9 @@ export const LANGUAGES: Language[] = [
   { code: 'ja', native: '日本語', english: 'Japanese', short: '日本語', tag: 'ja', script: 'cjk', fonts: ['Noto Sans JP', 'Noto Serif JP'] },
 ];
 
+/** Languages with finished translations (the picker hides itself until there are two or more). */
+export const AVAILABLE: Language[] = LANGUAGES.filter((l) => l.code === 'en');
+
 export const DEFAULT_LANG: LangCode = 'en';
-export const isLang = (v: unknown): v is LangCode => LANGUAGES.some((l) => l.code === v);
+export const isLang = (v: unknown): v is LangCode => AVAILABLE.some((l) => l.code === v);
 export const langInfo = (code: LangCode) => LANGUAGES.find((l) => l.code === code)!;

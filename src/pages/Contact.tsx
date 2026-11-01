@@ -99,9 +99,9 @@ export default function Contact() {
                   <p id="form-note" className="muted mt-2 text-sm">{f.note}</p>
 
                   <div className="mt-7 grid gap-5 sm:grid-cols-2">
-                    <Field id="name" label={f.name}><input id="name" name="name" required autoComplete="name" className="field" value={form.name} onChange={set('name')} /></Field>
-                    <Field id="email" label={f.emailField}><input id="email" name="email" type="email" required autoComplete="email" inputMode="email" className="field" value={form.email} onChange={set('email')} /></Field>
-                    <Field id="company" label={f.company} optional={f.optional}><input id="company" name="company" autoComplete="organization" className="field" value={form.company} onChange={set('company')} /></Field>
+                    <Field id="name" label={f.name}><input id="name" name="name" required autoComplete="name" className="field" value={form.name} onChange={set('name')} placeholder={f.namePlaceholder} /></Field>
+                    <Field id="email" label={f.emailField}><input id="email" name="email" type="email" required autoComplete="email" inputMode="email" className="field" value={form.email} onChange={set('email')} placeholder={f.emailPlaceholder} /></Field>
+                    <Field id="company" label={f.company} optional={f.optional}><input id="company" name="company" autoComplete="organization" className="field" value={form.company} onChange={set('company')} placeholder={f.companyPlaceholder} /></Field>
                     <Field id="service" label={f.service}>
                       <div className="relative">
                         <select id="service" name="service" className="field appearance-none pr-10" value={form.service} onChange={(e) => setForm((s) => ({ ...s, service: Number(e.target.value) }))}>
@@ -111,7 +111,7 @@ export default function Contact() {
                       </div>
                     </Field>
                     <Field id="message" label={f.message} className="sm:col-span-2">
-                      <textarea id="message" name="message" required rows={4} minLength={10} className="field resize-y" value={form.message} onChange={set('message')} placeholder={f.messagePlaceholder} />
+                      <textarea id="message" name="message" required rows={5} minLength={10} className="field resize-y" value={form.message} onChange={set('message')} placeholder={f.messagePlaceholder} />
                     </Field>
                   </div>
 
