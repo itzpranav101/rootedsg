@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { m, useScroll, useTransform } from 'framer-motion';
 import { useLoop } from '../../hooks/useLoop';
-import { usePerf } from '../../lib/perf';
 import { EASE_IN_OUT } from '../../lib/ease';
 
 /** Mono pill — "KEEP SCROLLING ⌄" — telling visitors a section animates as they scroll. */
@@ -34,22 +33,15 @@ export function ScrollRail({ label = 'Scroll to learn more', className = 'bottom
   );
 }
 
-/** Hand-drawn underline that draws itself beneath an accent word. */
-export function Squiggle({ className = '', delay = 0.9 }: { className?: string; delay?: number }) {
-  const { reduced } = usePerf();
+/**
+ * Accounting double rule — the way totals are underlined in a set of accounts.
+ * Two hairlines draw in from the left (pure CSS, so it never waits on JS).
+ */
+export function DoubleRule({ className = '', delay = 900 }: { className?: string; delay?: number }) {
   return (
-    <svg viewBox="0 0 200 16" preserveAspectRatio="none" className={`pointer-events-none absolute left-0 w-full overflow-visible ${className}`} aria-hidden>
-      <m.path
-        d="M3 9 C 30 2, 50 15, 80 8 S 140 3, 170 9 S 192 11, 197 6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
-        vectorEffect="non-scaling-stroke"
-        initial={{ pathLength: reduced ? 1 : 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.2, delay, ease: EASE_IN_OUT }}
-      />
-    </svg>
+    <span aria-hidden className={`pointer-events-none absolute inset-x-0 flex flex-col gap-[0.06em] ${className}`}>
+      <span className="block h-[0.035em] min-h-[2px] origin-left animate-rule-x bg-current" style={{ animationDelay: `${delay}ms` }} />
+      <span className="block h-[0.035em] min-h-[2px] origin-left animate-rule-x bg-current" style={{ animationDelay: `${delay + 160}ms` }} />
+    </span>
   );
 }

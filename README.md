@@ -3,7 +3,7 @@
 Marketing site for **Win-Win Business Solutions** (Madurai), the back office for Win-Win Management Consultants, Singapore.
 
 Built with React 19, TypeScript, Vite, Tailwind CSS and Framer Motion (lazy-loaded).
-The design language follows heymeco.xyz: Newsreader display type, Hanken Grotesk body, DM Mono labels, sky-wash heroes, stippled clouds and grain-textured cards, in the blues of the Win-Win logo.
+The design language follows heymeco.xyz: Newsreader display type, Hanken Grotesk body, DM Mono labels, sky-wash heroes on graph paper and grain-textured cards, in the blues of the Win-Win logo.
 
 ## Run it
 
@@ -38,7 +38,7 @@ To change wording, edit `src/content/site.ts`; layouts read from it.
 
 | Component | Where | What it does |
 | --- | --- | --- |
-| `WorkingPaper` | Home hero | Reconciliation fills in, a checker scan line sweeps and draws ticks row by row, open item highlighted, floating callouts, pointer tilt |
+| `ProofPanel` | Home hero | A bank reconciliation set out as a proof: figures count in, rules draw, Δ is computed live until it settles at 0.00 and the file is marked Balanced |
 | `FileJourney` | Home | Pinned 5-stage scroll story: files fly in → figures type in → ticked → open item flagged → stamped and signed off in Singapore, with leader-line callouts and a stage counter |
 | `RouteMap` | Home, About | Dot-matrix map of South India → Singapore; documents travel out, review notes travel back; live IST / SGT clocks |
 | `ReviewOrbit` | Team | One clock drives the orbiting file, trailing arc, lit role and centre caption |
@@ -46,7 +46,7 @@ To change wording, edit `src/content/site.ts`; layouts read from it.
 | `WordReveal` | About | Statement whose words light up as you scroll |
 | `RisingChart` | Services | Logo-style bars rise and the arrow draws (hover to replay) |
 | `ServiceGlyph` | Home, Services | Line-art illustration per service that draws itself |
-| `Clouds`, `Squiggle`, `CountUp`, `ScrollCue`, `ScrollRail`, `SentGraphic`, `BalanceScale` | Throughout | Hero clouds, hand-drawn underline, count-ups, "keep scrolling" cues, contact success, 404 |
+| `MathField`, `DoubleRule`, `CountUp`, `ScrollCue`, `ScrollRail`, `SentGraphic`, `BalanceScale` | Throughout | Graph-paper background (`MathField`), accounting double rule, count-ups, "keep scrolling" cues, contact success, 404 |
 
 Scroll-driven sections show a "Keep scrolling" or "Scroll to…" cue so visitors know to scroll.
 
@@ -82,6 +82,14 @@ You can force a tier with `?perf=lite` or `?perf=full`.
 - Light and dark themes follow the OS until the visitor picks one, and are applied before first paint.
 
 ## Deploying
+
+### GitHub Pages (set up)
+
+`.github/workflows/deploy.yml` builds and publishes the site on every push to `main`, at
+`https://<user>.github.io/<repo>/`. One-time setup: **Settings → Pages → Source: GitHub Actions**.
+(GitHub Pages on a private repository needs a paid GitHub plan; on a free plan make the repository public.)
+
+### Other hosts
 
 The site is a static SPA, so serve `dist/`:
 

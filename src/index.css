@@ -81,6 +81,37 @@
   }
   .dark .grid-bg { background-image: linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px); }
 
+  /* Graph paper: 24px minor grid, 120px major grid, fading out towards the edges */
+  .graph-paper {
+    background-image:
+      linear-gradient(to right, rgb(11 58 134 / 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(11 58 134 / 0.09) 1px, transparent 1px),
+      linear-gradient(to right, rgb(11 58 134 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(11 58 134 / 0.045) 1px, transparent 1px);
+    background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 35%, transparent 100%);
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 35%, transparent 100%);
+  }
+  .dark .graph-paper {
+    background-image:
+      linear-gradient(to right, rgb(142 198 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(142 198 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(to right, rgb(142 198 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(142 198 255 / 0.035) 1px, transparent 1px);
+  }
+  /* Drafting rulers: a tick every 12px, a long tick every 120px */
+  .ruler-x {
+    background:
+      linear-gradient(to right, currentColor 1px, transparent 1px) -1px 0 / 120px 100% repeat-x,
+      linear-gradient(to right, currentColor 1px, transparent 1px) -1px 0 / 12px 40% repeat-x;
+  }
+  .ruler-y {
+    background:
+      linear-gradient(to bottom, currentColor 1px, transparent 1px) 0 -1px / 100% 120px repeat-y,
+      linear-gradient(to bottom, currentColor 1px, transparent 1px) 0 -1px / 40% 12px repeat-y;
+  }
+
   /* Skip rendering work for far-below-the-fold blocks until they approach */
   .cv-auto { content-visibility: auto; contain-intrinsic-size: auto 800px; }
 

@@ -8,10 +8,10 @@ import { EASE_OUT } from '../../lib/ease';
 import { ScrollCue } from './ScrollCue';
 
 const ROWS: [string, string][] = [
-  ['Opening balance per bank', '1,24,580.00'],
+  ['Opening balance per bank', '124,580.00'],
   ['Add: Deposits in transit', '18,250.00'],
   ['Less: Unpresented cheques', '(9,410.00)'],
-  ['Adjusted bank balance', '1,33,420.00'],
+  ['Adjusted bank balance', '133,420.00'],
 ];
 const OPEN_ITEM = 2;
 const SOURCES = [

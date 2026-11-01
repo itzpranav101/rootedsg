@@ -12,14 +12,13 @@ import { Reveal } from '../components/ui/Reveal';
 import { SectionIntro } from '../components/ui/SectionIntro';
 import { Faq } from '../components/ui/Faq';
 import { CtaBand } from '../components/ui/CtaBand';
-import { Clouds } from '../components/motion/Clouds';
+import { MathField } from '../components/motion/MathField';
+import { ProofPanel } from '../components/motion/ProofPanel';
 import { CountUp } from '../components/motion/CountUp';
 import { FileJourney } from '../components/motion/FileJourney';
-import { FlowRail } from '../components/motion/FlowRail';
 import { RouteMap } from '../components/motion/RouteMap';
-import { ScrollCue, ScrollRail, Squiggle } from '../components/motion/ScrollCue';
+import { DoubleRule, ScrollCue, ScrollRail } from '../components/motion/ScrollCue';
 import { ServiceGlyph } from '../components/motion/ServiceGlyph';
-import { WorkingPaper } from '../components/motion/WorkingPaper';
 
 const SAFEGUARD_ICONS = [Lock, Users, ShieldCheck, FileCheck2];
 // 1 col → 2 cols (md) → 4 cols (lg): dividers between neighbours only
@@ -62,60 +61,69 @@ export default function Home() {
 /* ─────────────── Hero ─────────────── */
 
 const KNOWLEDGE = ['SFRS', 'ACRA', 'IRAS', 'CPF', 'MOM', 'GST', 'XBRL'];
+const SPEC = [
+  { k: 'Standard', v: 'SFRS-aligned' },
+  { k: 'Checks', v: 'Preparer + reviewer' },
+  { k: 'Sign-off', v: 'Stays in Singapore' },
+];
 
 function Hero() {
   return (
     <section className="sky-wash relative overflow-hidden">
-      <Clouds />
+      <MathField />
 
-      {/* ── First screen: message, actions, workflow ── */}
-      <div className="wrap relative flex min-h-[calc(100svh-1rem)] flex-col items-center justify-center pb-10 pt-28 text-center sm:pb-14 sm:pt-32 lg:min-h-0 lg:pb-16 lg:pt-36 lg:[@media(max-height:820px)]:pt-28">
-        <HeroClock />
+      <div className="wrap relative grid items-center gap-14 pb-14 pt-28 sm:pt-36 lg:grid-cols-12 lg:gap-12 lg:pb-20 lg:pt-40 xl:gap-20 lg:[@media(max-height:820px)]:pt-32">
+        {/* ── Message ── */}
+        <div className="lg:col-span-7">
+          <HeroClock />
 
-        <h1 className="h-display mx-auto mt-7 max-w-6xl text-[2.75rem] leading-[1] xs:text-[3.15rem] sm:mt-8 sm:text-7xl lg:text-[5.9rem] lg:leading-[0.96] lg:[@media(max-height:820px)]:mt-6 lg:[@media(max-height:820px)]:text-[4.8rem]">
-          <Line delay={0}>We prepare the work.</Line>
-          <Line delay={120} className="accent pb-[0.22em] -mb-[0.22em]">
-            You review with{' '}
-            <span className="relative inline-block whitespace-nowrap">
-              confidence.
-              <Squiggle delay={1.05} className="-bottom-1 h-3 text-brand-800 sm:-bottom-2 sm:h-4 dark:text-brand-300" />
-            </span>
-          </Line>
-        </h1>
+          <h1 className="h-display mt-7 text-[2.7rem] leading-[1] xs:text-[3.05rem] sm:mt-8 sm:text-[4.1rem] lg:text-[4.35rem] lg:leading-[0.98] xl:text-[5.1rem]">
+            <Line delay={0}>The team behind</Line>
+            <Line delay={120} className="accent pb-[0.3em] -mb-[0.3em]">
+              your{' '}
+              <span className="relative inline-block whitespace-nowrap">
+                numbers.
+                <DoubleRule delay={1050} className="-bottom-[0.02em] text-brand-800 dark:text-brand-300" />
+              </span>
+            </Line>
+          </h1>
 
-        <p className="lead mx-auto mt-7 max-w-[42rem] animate-fade-up [animation-delay:380ms] [text-wrap:balance] sm:mt-8">
-          The Madurai back office for {company.parent.replace('-', '\u2011')}, Singapore.{' '}
-          <span className="hidden sm:inline">Bookkeeping, audit working papers, payroll, GST and tax — </span>
-          <span className="sm:hidden">Every file is </span>
-          <span className="text-ink dark:text-white">prepared, double&#8209;checked and ready for sign&#8209;off.</span>
-        </p>
+          <p className="lead mt-7 max-w-[36rem] animate-fade-up [animation-delay:380ms] sm:mt-8">
+            The Madurai back office for {company.parent.replace('-', '\u2011')}, Singapore. Bookkeeping, audit working papers, payroll, GST and tax —{' '}
+            <span className="text-ink dark:text-white">prepared to your templates, checked line by line and delivered review&#8209;ready.</span>
+          </p>
 
-        <div className="mt-9 flex w-full animate-fade-up flex-col items-center justify-center gap-3 [animation-delay:480ms] sm:w-auto sm:flex-row">
-          <Link to="/contact" className="btn-primary w-full max-w-[20rem] sm:w-auto">Discuss your work <ArrowRight size={14} /></Link>
-          <a href="#journey" className="btn-ghost w-full max-w-[20rem] sm:w-auto">See how a file moves</a>
+          <div className="mt-9 flex animate-fade-up flex-col gap-3 [animation-delay:480ms] xs:flex-row">
+            <Link to="/contact" className="btn-primary">Discuss your work <ArrowRight size={14} /></Link>
+            <a href="#journey" className="btn-ghost">See how a file moves</a>
+          </div>
+
+          {/* specification list */}
+          <dl className="mt-12 grid max-w-[36rem] animate-fade-up grid-cols-3 border-t border-ink/15 [animation-delay:600ms] dark:border-white/15">
+            {SPEC.map((s, i) => (
+              <div key={s.k} className={`pt-4 ${i > 0 ? 'border-l border-ink/10 pl-4 sm:pl-5 dark:border-white/10' : 'pr-4'}`}>
+                <dt className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-ink/55 dark:text-white/50">
+                  <span className="text-brand-800 dark:text-brand-300">0{i + 1}</span> · {s.k}
+                </dt>
+                <dd className="mt-1.5 text-[0.88rem] leading-snug text-ink sm:text-[0.95rem] dark:text-white">{s.v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <div className="mt-12 w-full animate-fade-up [animation-delay:600ms] sm:mt-14 lg:[@media(max-height:820px)]:mt-9">
-          <p className="label">Every file follows one path</p>
-          <div className="mt-4"><FlowRail /></div>
+        {/* ── Proof ── */}
+        <div className="animate-fade-up [animation-delay:250ms] lg:col-span-5">
+          <ProofPanel />
         </div>
-
-        <a href="#overview" className="mt-10 inline-flex flex-col items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.2em] text-ink/70 sm:hidden dark:text-white/60">
-          Scroll to learn more
-          <svg viewBox="0 0 24 24" className="h-4 w-4 animate-bounce" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden><path d="M6 9l6 6 6-6" /></svg>
-        </a>
       </div>
 
-      {/* ── Product shot: tilts up into place as you scroll (tablet & desktop) ── */}
-      <HeroPaper />
-
       {/* ── Closing strip ── */}
-      <div className="wrap relative pb-14 pt-4 sm:pb-20">
-        <div className="flex flex-col items-center gap-4 border-t border-ink/10 pt-8 lg:flex-row lg:justify-center lg:gap-10 dark:border-white/10">
+      <div className="wrap relative pb-14 sm:pb-16">
+        <div className="flex flex-col items-center gap-4 border-t border-ink/10 pt-8 lg:flex-row lg:justify-between lg:gap-10 dark:border-white/10">
           <p className="label shrink-0">Working knowledge of</p>
-          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 sm:gap-0">
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 sm:gap-0 lg:pr-12">
             {KNOWLEDGE.map((k, i) => (
-              <li key={k} className={`text-center font-display text-xl font-light tracking-[-0.01em] text-ink/80 sm:px-6 sm:text-2xl dark:text-white/80 ${i > 0 ? 'sm:border-l sm:border-ink/15 sm:dark:border-white/15' : ''}`}>
+              <li key={k} className={`text-center font-display text-xl font-light tracking-[-0.01em] text-ink/80 sm:px-6 sm:text-2xl lg:last:pr-0 dark:text-white/80 ${i > 0 ? 'sm:border-l sm:border-ink/15 sm:dark:border-white/15' : ''}`}>
                 {k}
               </li>
             ))}
@@ -153,26 +161,6 @@ function HeroClock() {
   );
 }
 
-/** The working paper rises from a 3D tilt to flat as the hero scrolls away. */
-function HeroPaper() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { lite, reduced } = usePerf();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 30%'] });
-  const p = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.5 });
-  const v = lite ? scrollYProgress : p;
-  const rotateX = useTransform(v, [0, 1], [26, 0]);
-  const scale = useTransform(v, [0, 1], [0.86, 1]);
-  const y = useTransform(v, [0, 1], [60, 0]);
-  const glow = useTransform(v, [0, 1], [0.2, 1]);
-  return (
-    <div ref={ref} className="wrap relative hidden pb-16 sm:block lg:pb-24" style={{ perspective: 1400 }}>
-      <m.div aria-hidden style={{ opacity: reduced ? 1 : glow }} className="pointer-events-none absolute inset-x-[15%] bottom-10 top-24 rounded-full bg-brand-400/25 blur-3xl lite-hide dark:bg-brand-600/20" />
-      <m.div style={reduced ? undefined : { rotateX, scale, y, transformOrigin: '50% 100%' }} className="relative mx-auto max-w-5xl">
-        <WorkingPaper />
-      </m.div>
-    </div>
-  );
-}
 
 /* ─────────────── "In the next few minutes you'll see" ─────────────── */
 

@@ -6,7 +6,7 @@ import { company, enquiryServices, waLink } from '../content/site';
 import { useSeo } from '../hooks/useSeo';
 import { formatTime, useLiveClock } from '../hooks/useLiveClock';
 import { Reveal } from '../components/ui/Reveal';
-import { Clouds } from '../components/motion/Clouds';
+import { MathField } from '../components/motion/MathField';
 import { SentGraphic } from '../components/motion/SentGraphic';
 import { EASE_OUT } from '../lib/ease';
 
@@ -52,18 +52,23 @@ export default function Contact() {
   return (
     <>
       <section className="sky-wash relative overflow-hidden pb-16 pt-32 sm:pb-20 sm:pt-40">
-        <Clouds />
-        <div className="wrap relative text-center">
+        <MathField />
+        <div className="wrap relative">
           <p className="label animate-fade-up">Contact</p>
-          <h1 className="h-display mx-auto mt-6 max-w-4xl animate-fade-up text-[2.6rem] leading-[1] [animation-delay:80ms] sm:text-6xl lg:text-[4.6rem]">
+          <h1 className="h-display mt-6 max-w-4xl animate-fade-up text-[2.6rem] leading-[1] [animation-delay:80ms] sm:text-6xl lg:text-[4.4rem]">
             Let's talk about <span className="accent">the work.</span>
           </h1>
-          <p className="lead mx-auto mt-6 max-w-xl animate-fade-up [animation-delay:160ms]">Tell us what you need, the timing and the volume. We usually reply within one business day with the next practical step.</p>
-          <p className="label mt-8 animate-fade-up [animation-delay:240ms]">
-            Madurai now · <span className="label-accent tabular-nums">{formatTime(now, 'Asia/Kolkata')} IST</span>
-            <span className="mx-2 opacity-50">/</span>
-            Singapore · <span className="label-accent tabular-nums">{formatTime(now, 'Asia/Singapore')} SGT</span>
-          </p>
+          <p className="lead mt-6 max-w-xl animate-fade-up [animation-delay:160ms]">Tell us what you need, the timing and the volume. We usually reply within one business day with the next practical step.</p>
+          <dl className="mt-10 grid max-w-xl animate-fade-up grid-cols-2 border-t border-ink/15 [animation-delay:240ms] dark:border-white/15">
+            <div className="pr-4 pt-4">
+              <dt className="label">Madurai · IST</dt>
+              <dd className="mt-1 font-display text-3xl font-light tabular-nums">{formatTime(now, 'Asia/Kolkata')}</dd>
+            </div>
+            <div className="border-l border-ink/10 pl-5 pt-4 dark:border-white/10">
+              <dt className="label">Singapore · SGT</dt>
+              <dd className="mt-1 font-display text-3xl font-light tabular-nums text-brand-800 dark:text-brand-300">{formatTime(now, 'Asia/Singapore')}</dd>
+            </div>
+          </dl>
         </div>
       </section>
 

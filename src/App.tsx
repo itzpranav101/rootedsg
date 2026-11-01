@@ -22,7 +22,7 @@ export default function App() {
     <PerfProvider>
       <LazyMotion features={loadMotion} strict>
         <MotionConfig reducedMotion="user">
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
             <Routes>
               <Route element={<Layout />}>
                 <Route index element={<Home />} />

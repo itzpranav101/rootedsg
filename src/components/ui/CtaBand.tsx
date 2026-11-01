@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { waLink } from '../../content/site';
 import { Reveal } from './Reveal';
-import { Clouds } from '../motion/Clouds';
+import { LEDGER_FORMULAS, MathField } from '../motion/MathField';
 
 export function CtaBand({ title, text = 'Tell us the work type, timing and volume. We usually reply within one business day with the next practical step.' }: { title?: React.ReactNode; text?: string }) {
   return (
     <section className="pb-20 sm:pb-28">
       <div className="wrap">
         <Reveal className="sky-wash relative overflow-hidden rounded-[2rem] border border-ink/[0.06] px-6 py-16 text-center sm:px-12 sm:py-24 dark:border-white/10">
-          <Clouds compact />
+          <MathField rulers={false} formulas={LEDGER_FORMULAS} />
           <div className="relative">
             <p className="label">Start a conversation</p>
             <h2 className="h-section mx-auto mt-4 max-w-3xl">{title ?? <>Have a busy period <span className="accent">coming up?</span></>}</h2>
